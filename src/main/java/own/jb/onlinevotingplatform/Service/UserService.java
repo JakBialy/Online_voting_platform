@@ -5,7 +5,6 @@ import own.jb.onlinevotingplatform.Entities.User;
 import java.util.List;
 
 public interface UserService {
-
     long getNumUsers();
 
     List<User> findAll();
@@ -14,4 +13,5 @@ public interface UserService {
 
     void saveUser(User user);
 
+    void editUser(String firstName, String lastName, String email, String documentId, String password, String aboutMe);
 }

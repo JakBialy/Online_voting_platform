@@ -1,5 +1,6 @@
 package own.jb.onlinevotingplatform.Service;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import own.jb.onlinevotingplatform.Entities.Role;
@@ -53,5 +54,17 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public void editUser(String firstName, String lastName, String email, String documentId, String password, String aboutMe) {
+        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setUsername(email);
+        user.setDocumentId(documentId);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setAboutMe(aboutMe);
+        userRepository.save(user);
+    }
 
 }

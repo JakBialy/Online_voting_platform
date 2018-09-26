@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ class User {
     Long id;
 
     @NotEmpty
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     String username;
 
     @NotEmpty
@@ -27,7 +28,8 @@ class User {
     String lastName;
 
     @NotEmpty
-    @Column(nullable = false, unique = true)
+    @Email
+    @Column(nullable = true, unique = true)
     String email;
 
     @NotEmpty
@@ -35,6 +37,8 @@ class User {
 
     @NotEmpty
     String password;
+
+    String aboutMe;
 
     private boolean enabled;
 
