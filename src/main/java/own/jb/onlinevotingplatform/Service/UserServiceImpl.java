@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEmail(user.getUsername());
         user.setEnabled(true);
 
         Role role = roleService.getOrCreate(DEFAULT_USER_ROLE_NAME);
@@ -64,6 +65,7 @@ public class UserServiceImpl implements UserService {
         user.setDocumentId(documentId);
         user.setPassword(passwordEncoder.encode(password));
         user.setAboutMe(aboutMe);
+
         userRepository.save(user);
     }
 

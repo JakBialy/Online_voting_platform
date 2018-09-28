@@ -1,7 +1,7 @@
 package own.jb.onlinevotingplatform.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,7 +18,7 @@ class User {
     Long id;
 
     @NotEmpty
-    @Column(nullable = true, unique = true)
+    @Column(unique = true)
     String username;
 
     @NotEmpty
@@ -27,9 +27,8 @@ class User {
     @NotEmpty
     String lastName;
 
-    @NotEmpty
     @Email
-    @Column(nullable = true, unique = true)
+    @Column(unique = true)
     String email;
 
     @NotEmpty
@@ -41,6 +40,11 @@ class User {
     String aboutMe;
 
     private boolean enabled;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    @JsonBackReference
+    Company company;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
