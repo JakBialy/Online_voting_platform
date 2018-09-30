@@ -32,6 +32,7 @@ class User {
     String email;
 
     @NotEmpty
+    @Column(unique = true)
     String documentId;
 
     @NotEmpty

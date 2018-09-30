@@ -18,7 +18,7 @@ class Company {
 
     @NotEmpty
     @Column(unique = true)
-    private String name;
+    private String companyName;
 
     @ElementCollection
     @CollectionTable(name="employers_ids_companies", joinColumns=@JoinColumn(name="company_id"))

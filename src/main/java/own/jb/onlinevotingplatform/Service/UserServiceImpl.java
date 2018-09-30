@@ -1,10 +1,13 @@
 package own.jb.onlinevotingplatform.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import own.jb.onlinevotingplatform.Entities.Company;
 import own.jb.onlinevotingplatform.Entities.Role;
 import own.jb.onlinevotingplatform.Entities.User;
+import own.jb.onlinevotingplatform.Repository.CompanyRepository;
 import own.jb.onlinevotingplatform.Repository.UserRepository;
 import java.util.*;
 
@@ -16,11 +19,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleService roleService;
+    private final CompanyRepository companyRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            RoleService roleService,
-                           BCryptPasswordEncoder passwordEncoder) {
+                           CompanyRepository companyRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.companyRepository = companyRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleService = roleService;
@@ -52,7 +58,16 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = new HashSet<>(Collections.singletonList(role));
         user.setRoles(roles);
 
+        userCompanySetter(user);
         userRepository.save(user);
+    }
+
+    private void userCompanySetter(User user) {
+        for (Company company: companyRepository.findAll()) {
+                if(company.getEmployersIds().contains(user.getDocumentId())){
+                    user.setCompany(company);
+                }
+        }
     }
 
     @Override
@@ -62,7 +77,10 @@ public class UserServiceImpl implements UserService {
         user.setLastName(lastName);
         user.setEmail(email);
         user.setUsername(email);
-        user.setDocumentId(documentId);
+        if (!user.getDocumentId().equals(documentId)){
+            user.setDocumentId(documentId);
+            userCompanySetter(user);
+        }
         user.setPassword(passwordEncoder.encode(password));
         user.setAboutMe(aboutMe);
 

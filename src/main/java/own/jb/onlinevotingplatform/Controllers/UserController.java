@@ -30,7 +30,6 @@ public class UserController {
         return "User";
     }
 
-
     @PostMapping("/user")
     public String user(Principal principal, @Valid @RequestParam String firstName, String lastName, String documentId, String email, String password, String aboutMe) {
         // TODO maybe change it to model atribbute User?
