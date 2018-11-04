@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="../static/elements/Head.html :: head" xmlns:th="http://www.w3.org/1999/xhtml"></head>
+<div th:replace="../static/elements/Nav.html :: nav" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+
+ <!--Content Here!!!-->
+<p th:text="${vote.name}"></p>
+<p th:text="| Vote started: ${vote.getVoteStart()}|"></p>
+<p th:text="| Vote is going to end: ${vote.getVoteEnd()}|"></p>
+
+
+
+
+
+
+
+
+<div th:replace="../static/elements/Footer.html :: footer" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+
+</html>

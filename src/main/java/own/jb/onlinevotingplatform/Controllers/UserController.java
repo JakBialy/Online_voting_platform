@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import own.jb.onlinevotingplatform.Entities.User;
 import own.jb.onlinevotingplatform.Service.UserService;
+import own.jb.onlinevotingplatform.Service.VoteService;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -17,11 +15,21 @@ import java.security.Principal;
 @Controller
 public class UserController {
 
+    private final VoteService voteService;
+
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, VoteService voteService) {
         this.userService = userService;
+        this.voteService = voteService;
+    }
+
+
+    @GetMapping("/home")
+    public String home(Model model, Principal principal){
+        model.addAttribute("user", userService.findByUserName(principal.getName()));
+        return "Home";
     }
 
     @GetMapping("/user")
@@ -55,6 +63,12 @@ public class UserController {
         }
         userService.saveUser(user);
         return "redirect:/login";
+    }
+
+    @GetMapping("vote/{id}")
+    public String vote(@PathVariable Long id, Model model) {
+        model.addAttribute("vote", voteService.findOne(id));
+        return "Vote";
     }
 
 }

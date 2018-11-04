@@ -1,12 +1,14 @@
 package own.jb.onlinevotingplatform.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "vote_options")
-public class VoteOption {
+public @Data
+class VoteOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +16,7 @@ public class VoteOption {
 
     String name;
 
-    Long votesNumber;
+    Long votesNumber = 0L;
 
     @ManyToOne
     @JoinColumn(name = "vote_id")
