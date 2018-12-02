@@ -65,7 +65,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("vote/{id}")
+    @GetMapping("/vote/{id}")
     public String vote(@PathVariable Long id, Model model) {
         model.addAttribute("vote", voteService.findOne(id));
         return "Vote";
