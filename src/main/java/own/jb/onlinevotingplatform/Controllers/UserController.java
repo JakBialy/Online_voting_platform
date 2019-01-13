@@ -15,14 +15,11 @@ import java.security.Principal;
 @Controller
 public class UserController {
 
-    private final VoteService voteService;
-
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService, VoteService voteService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.voteService = voteService;
     }
 
 
@@ -63,12 +60,6 @@ public class UserController {
         }
         userService.saveUser(user);
         return "redirect:/login";
-    }
-
-    @GetMapping("/vote/{id}")
-    public String vote(@PathVariable Long id, Model model) {
-        model.addAttribute("vote", voteService.findOne(id));
-        return "Vote";
     }
 
 }

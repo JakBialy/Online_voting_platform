@@ -10,8 +10,7 @@ import java.util.List;
 @Service
 public class VoteOptionServiceImpl implements VoteOptionService {
 
-    final
-    VoteOptionRepository voteOptionRepository;
+    private final VoteOptionRepository voteOptionRepository;
 
     @Autowired
     public VoteOptionServiceImpl(VoteOptionRepository voteOptionRepository) {
@@ -24,7 +23,7 @@ public class VoteOptionServiceImpl implements VoteOptionService {
     }
 
     @Override
-    public VoteOption findbyId(Long id) {
+    public VoteOption findById(Long id) {
         return voteOptionRepository.findById(id).get();
     }
 
@@ -36,5 +35,12 @@ public class VoteOptionServiceImpl implements VoteOptionService {
     @Override
     public void deleteVoteOption(VoteOption voteOption) {
         voteOptionRepository.delete(voteOption);
+    }
+
+    @Override
+    public void countVoteForOption(Long id){
+        VoteOption voteOption = voteOptionRepository.findById(id).get();
+        voteOption.setVotesNumber(voteOption.getVotesNumber() + 1);
+        voteOptionRepository.save(voteOption);
     }
 }

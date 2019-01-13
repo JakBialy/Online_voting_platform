@@ -9,6 +9,10 @@
 <p th:text="| Vote started: ${vote.getVoteStart()}|"></p>
 <p th:text="| Vote is going to end: ${vote.getVoteEnd()}|"></p>
 
+<tr th:each="voteOption: ${vote.voteOptions}">
+    <p th:text="${voteOption.name}">Vote option Name </p>
+    <a th:href="@{/vote/add-vote/{id}(id=${voteOption.id})}"> Vote for it!</a>
+</tr>
 
 
 

@@ -8,9 +8,11 @@ public interface VoteOptionService {
 
     List<VoteOption> findAll();
 
-    VoteOption findbyId(Long id);
+    VoteOption findById(Long id);
 
     void saveVoteOption(VoteOption voteOption);
 
     void deleteVoteOption(VoteOption voteOption);
+
+    void countVoteForOption(Long id);
 }

@@ -69,12 +69,12 @@ public class AppStartup implements ApplicationRunner {
         voteService.saveVote(vote);
 
         VoteOption voteOption = new VoteOption();
-        voteOption.setName("10th October");
+        voteOption.setName("Thursday");
         voteOption.setVote(vote);
         voteOptionService.saveVoteOption(voteOption);
 
         VoteOption voteOption1 = new VoteOption();
-        voteOption1.setName("10th October");
+        voteOption1.setName("Friday");
         voteOption1.setVote(vote);
         voteOptionService.saveVoteOption(voteOption1);
     }
