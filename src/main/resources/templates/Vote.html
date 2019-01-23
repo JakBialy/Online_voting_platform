@@ -9,13 +9,19 @@
 <p th:text="| Vote started: ${vote.getVoteStart()}|"></p>
 <p th:text="| Vote is going to end: ${vote.getVoteEnd()}|"></p>
 
-<tr th:each="voteOption: ${vote.voteOptions}">
-    <p th:text="${voteOption.name}">Vote option Name </p>
-    <a th:href="@{/vote/add-vote/{id}(id=${voteOption.id})}"> Vote for it!</a>
-</tr>
+<form th:action="@{/vote/add-vote}" th:object="${voteOption}"	method="post">
 
+    <label> Vote options: </label>
+    <select th:field="*{id}">
+        <option th:each="voteOption : ${vote.voteOptions}"
+        th:value="${voteOption.id}" th:text="${voteOption.name}"> Vote! </option>
+    </select>
 
+    <div class="text-center">
+        <input type="submit" value="Vote!" />
+    </div>
 
+</form>
 
 
 <div th:replace="../static/elements/Footer.html :: footer" xmlns:th="http://www.w3.org/1999/xhtml"></div>

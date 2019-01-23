@@ -14,4 +14,6 @@ public interface VoteService {
     void saveVote(Vote vote);
 
     void deleteVote(Vote vote);
+
+    void saveVotingUser(String name, Long voteOptionId);
 }

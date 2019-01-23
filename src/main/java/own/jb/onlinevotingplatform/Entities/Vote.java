@@ -34,4 +34,11 @@ class Vote {
 
     @OneToMany(mappedBy = "vote")
     List<VoteOption> voteOptions = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name="votes_users",
+            joinColumns=@JoinColumn(name="vote_id"),
+            inverseJoinColumns=@JoinColumn(name="user_ID")
+    )
+    private List<User> votingUsers;
 }
