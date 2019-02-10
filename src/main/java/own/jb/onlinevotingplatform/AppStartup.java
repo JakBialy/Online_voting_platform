@@ -56,7 +56,7 @@ public class AppStartup implements ApplicationRunner {
 
     private void saveTestCompany1(){
         Company company = new Company();
-        company.setEmployersIds(Arrays.asList("ABC123", "ABC1234"));
+        company.setEmployersIds(Arrays.asList("ABC123", "ABC1234", "DEMO"));
         company.setCompanyName("TEST_1");
         companyService.saveCompany(company);
 
@@ -77,6 +77,26 @@ public class AppStartup implements ApplicationRunner {
         voteOption1.setName("Friday");
         voteOption1.setVote(vote);
         voteOptionService.saveVoteOption(voteOption1);
+
+        Vote voteTestTwo = new Vote();
+        voteTestTwo.setCompany(company);
+        voteTestTwo.setName("Some another event");
+        voteTestTwo.setVoteStart(LocalDateTime.now());
+        voteTestTwo.setVoteEnd(LocalDateTime.now().plusMinutes(20));
+        voteTestTwo.setVoteResults(LocalDateTime.now().plusMinutes(30));
+        voteService.saveVote(voteTestTwo);
+
+        VoteOption voteOptionOne = new VoteOption();
+        voteOptionOne.setName("10.05.2019");
+        voteOptionOne.setVote(voteTestTwo);
+        voteOptionService.saveVoteOption(voteOptionOne);
+
+        VoteOption VoteOptionTwo = new VoteOption();
+        VoteOptionTwo.setName("10.06.2019");
+        VoteOptionTwo.setVote(voteTestTwo);
+        voteOptionService.saveVoteOption(VoteOptionTwo);
+
+
     }
 
     private Company testCompany2(){

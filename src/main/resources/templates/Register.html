@@ -49,8 +49,8 @@
 
                     <div class="col-sm-4 col-sm-offset-4">
                         <div class="form-group">
-                            <label>Document Id</label>
-                            <input type="text" th:field="*{documentId}" class="form-control border-input" name="lastName" placeholder="Last Name">
+                            <label>Document Id - <b> For demo version use phrase "DEMO" (without quotes) instead </b> </label>
+                            <input type="text" th:field="*{documentId}" class="form-control border-input" name="lastName" placeholder="Document ID">
                             <p th:if="${#fields.hasErrors('documentId')}" th:errors="*{documentId}"> error message</p>
                         </div>
                     </div>
