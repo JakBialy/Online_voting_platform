@@ -38,5 +38,3 @@ public class VoteController {
     }
 
 }
-
-//http://localhost:8080/vote/add-vote/2

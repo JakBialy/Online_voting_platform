@@ -5,8 +5,7 @@
 <div th:replace="../static/elements/Nav.html :: nav" xmlns:th="http://www.w3.org/1999/xhtml"></div>
 
 <!-- Content Here!!! -->
-<h3> Welcome to online voting platform</h3>
-<p> Here is a list of your all votings:</p>
+<h3> Here is a list of your open voting: </h3>
 
 <div class="content table-responsive table-full-width">
     <table class="table table-striped">
@@ -17,15 +16,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="vote: ${user.company.votes}">
+
+        <tr th:if="${currentVotes.isEmpty()}">
+            <td colspan="2"> No Current Votes </td>
+        </tr>
+
+        <tr th:each="vote: ${currentVotes}">
             <td th:text="${vote.name}">Vote Name</td>
             <td> <a th:href="@{/vote/{id}(id=${vote.id})}">Vote!</a> </td>
         </tr>
+
         </tbody>
     </table>
 
 </div>
-
 
 
 <div th:replace="../static/elements/Footer.html :: footer" xmlns:th="http://www.w3.org/1999/xhtml"></div>

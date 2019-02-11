@@ -1,7 +1,7 @@
 package own.jb.onlinevotingplatform.Entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -11,42 +11,41 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public @Data
+public @Getter @Setter
 class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @NotEmpty
     @Column(unique = true)
-    String username;
+    private String username;
 
     @NotEmpty
-    String firstName;
+    private String firstName;
 
     @NotEmpty
-    String lastName;
+    private String lastName;
 
     @Email
     @Column(unique = true)
-    String email;
+    private String email;
 
     @NotEmpty
     @Column(unique = true)
-    String documentId;
+    private String documentId;
 
     @NotEmpty
-    String password;
+    private String password;
 
-    String aboutMe;
+    private String aboutMe;
 
     private boolean enabled;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
-    @JsonBackReference
-    Company company;
+    @JoinColumn(name = "companies_id")
+    private Company company;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -57,7 +56,6 @@ class User {
     @ManyToMany
     @JoinTable(name="votes_users",
             joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="vote_id")
-    )
+            inverseJoinColumns=@JoinColumn(name="vote_id"))
     private List<Vote> userVotes;
 }

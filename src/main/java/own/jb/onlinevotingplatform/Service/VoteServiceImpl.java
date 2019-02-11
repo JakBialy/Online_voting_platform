@@ -56,4 +56,5 @@ public class VoteServiceImpl implements VoteService {
 
         voteRepository.save(vote);
     }
+
 }

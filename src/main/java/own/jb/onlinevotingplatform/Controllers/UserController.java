@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import own.jb.onlinevotingplatform.Entities.User;
 import own.jb.onlinevotingplatform.Service.UserService;
-import own.jb.onlinevotingplatform.Service.VoteService;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -25,12 +24,27 @@ public class UserController {
 
     @GetMapping("/home")
     public String home(Model model, Principal principal){
-        model.addAttribute("user", userService.findByUserName(principal.getName()));
+        User user = userService.findByUserName(principal.getName());
+        model.addAttribute("user", user);
         return "Home";
     }
 
-    @GetMapping("/user")
-    public String user (Model model, Principal principal){
+    @GetMapping("/current-voting")
+    public String currentVoting(Model model, Principal principal){
+        User user = userService.findByUserName(principal.getName());
+        model.addAttribute("currentVotes", userService.findAllCurrentVotesForUser(user));
+        return "CurrentVoting";
+    }
+
+    @GetMapping("/finished-voting")
+    public String finishedVoting(Model model, Principal principal){
+        User user = userService.findByUserName(principal.getName());
+        model.addAttribute("finishedVotes", userService.findAllFinishedVotesForUser(user));
+        return "FinishedVoting";
+    }
+
+    @GetMapping("/user-profile")
+    public String userProfile (Model model, Principal principal){
         model.addAttribute("user", userService.findByUserName(principal.getName()));
         return "User";
     }
@@ -38,7 +52,7 @@ public class UserController {
     @PostMapping("/user")
     public String user(Principal principal, @Valid @RequestParam String firstName, String lastName, String documentId, String email, String password, String aboutMe) {
         // TODO maybe change it to model atribbute User?
-        // TODO then add bindingresult
+        // TODO then add binding result
         if (!principal.getName().equals(email)){
             userService.editUser(firstName,lastName, email,  documentId, password, aboutMe);
             return "redirect:/login";

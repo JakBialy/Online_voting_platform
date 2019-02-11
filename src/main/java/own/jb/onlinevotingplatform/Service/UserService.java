@@ -1,6 +1,7 @@
 package own.jb.onlinevotingplatform.Service;
 
 import own.jb.onlinevotingplatform.Entities.User;
+import own.jb.onlinevotingplatform.Entities.Vote;
 
 import java.util.List;
 
@@ -14,4 +15,8 @@ public interface UserService {
     void saveUser(User user);
 
     void editUser(String firstName, String lastName, String email, String documentId, String password, String aboutMe);
+
+    List<Vote> findAllFinishedVotesForUser(User user);
+
+    List<Vote> findAllCurrentVotesForUser(User user);
 }

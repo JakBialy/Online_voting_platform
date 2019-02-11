@@ -1,7 +1,7 @@
 package own.jb.onlinevotingplatform.Entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,29 +11,28 @@ import java.util.List;
 
 @Entity
 @Table(name = "votes")
-public @Data
+public @Getter @Setter
 class Vote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @NotEmpty
-    String name;
+    private String name;
 
-    LocalDateTime voteStart;
+    private LocalDateTime voteStart;
 
-    LocalDateTime voteEnd;
+    private LocalDateTime voteEnd;
 
-    LocalDateTime voteResults;
+    private LocalDateTime voteResults;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
-    @JsonBackReference
-    Company company;
+    @JoinColumn(name = "companies_id")
+    private Company company;
 
     @OneToMany(mappedBy = "vote")
-    List<VoteOption> voteOptions = new ArrayList<>();
+    private List<VoteOption> voteOptions = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name="votes_users",

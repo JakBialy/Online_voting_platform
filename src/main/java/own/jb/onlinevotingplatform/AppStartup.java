@@ -95,8 +95,25 @@ public class AppStartup implements ApplicationRunner {
         VoteOptionTwo.setName("10.06.2019");
         VoteOptionTwo.setVote(voteTestTwo);
         voteOptionService.saveVoteOption(VoteOptionTwo);
+        pastEvent(company, vote);
 
+    }
 
+    private void pastEvent(Company company, Vote vote) {
+        // past event, to show and check ability of showing past events
+        Vote pastVote = new Vote();
+        pastVote.setCompany(company);
+        pastVote.setName("Some event in the past");
+        pastVote.setVoteStart(LocalDateTime.now().minusDays(15));
+        pastVote.setVoteEnd(LocalDateTime.now().minusDays(10));
+        pastVote.setVoteResults(LocalDateTime.now().minusDays(9));
+        voteService.saveVote(pastVote);
+
+        VoteOption pastVoteOption = new VoteOption();
+        pastVoteOption.setName("Thursday");
+        pastVoteOption.setVote(vote);
+        pastVoteOption.setVotesNumber(10L);
+        voteOptionService.saveVoteOption(pastVoteOption);
     }
 
     private Company testCompany2(){

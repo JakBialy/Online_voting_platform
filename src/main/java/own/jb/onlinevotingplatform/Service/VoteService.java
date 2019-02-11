@@ -1,7 +1,9 @@
 package own.jb.onlinevotingplatform.Service;
 
+import own.jb.onlinevotingplatform.Entities.User;
 import own.jb.onlinevotingplatform.Entities.Vote;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -16,4 +18,6 @@ public interface VoteService {
     void deleteVote(Vote vote);
 
     void saveVotingUser(String name, Long voteOptionId);
+
+
 }

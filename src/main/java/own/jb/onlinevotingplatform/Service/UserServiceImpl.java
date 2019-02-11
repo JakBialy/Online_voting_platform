@@ -7,9 +7,13 @@ import org.springframework.stereotype.Service;
 import own.jb.onlinevotingplatform.Entities.Company;
 import own.jb.onlinevotingplatform.Entities.Role;
 import own.jb.onlinevotingplatform.Entities.User;
+import own.jb.onlinevotingplatform.Entities.Vote;
 import own.jb.onlinevotingplatform.Repository.CompanyRepository;
 import own.jb.onlinevotingplatform.Repository.UserRepository;
+
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @javax.transaction.Transactional
@@ -85,6 +89,20 @@ public class UserServiceImpl implements UserService {
         user.setAboutMe(aboutMe);
 
         userRepository.save(user);
+    }
+
+    @Override
+    public List<Vote> findAllFinishedVotesForUser(User user) {
+        List<Vote> voteList = user.getCompany().getVotes();
+        voteList = voteList.stream().filter(element -> element.getVoteEnd().isBefore(LocalDateTime.now())).collect(Collectors.toList());
+        return voteList;
+    }
+
+    @Override
+    public List<Vote> findAllCurrentVotesForUser(User user) {
+        List<Vote> voteList = user.getCompany().getVotes();
+        voteList = voteList.stream().filter(element -> element.getVoteEnd().isAfter(LocalDateTime.now())).collect(Collectors.toList());
+        return voteList;
     }
 
 }
