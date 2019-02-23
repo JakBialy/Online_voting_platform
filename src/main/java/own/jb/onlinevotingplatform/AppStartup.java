@@ -95,11 +95,11 @@ public class AppStartup implements ApplicationRunner {
         VoteOptionTwo.setName("10.06.2019");
         VoteOptionTwo.setVote(voteTestTwo);
         voteOptionService.saveVoteOption(VoteOptionTwo);
-        pastEvent(company, vote);
+        pastEvent(company);
 
     }
 
-    private void pastEvent(Company company, Vote vote) {
+    private void pastEvent(Company company) {
         // past event, to show and check ability of showing past events
         Vote pastVote = new Vote();
         pastVote.setCompany(company);
@@ -110,10 +110,16 @@ public class AppStartup implements ApplicationRunner {
         voteService.saveVote(pastVote);
 
         VoteOption pastVoteOption = new VoteOption();
-        pastVoteOption.setName("Thursday");
-        pastVoteOption.setVote(vote);
+        pastVoteOption.setName("Saturday");
+        pastVoteOption.setVote(pastVote);
         pastVoteOption.setVotesNumber(10L);
         voteOptionService.saveVoteOption(pastVoteOption);
+
+        VoteOption pastVoteOptionTwo = new VoteOption();
+        pastVoteOptionTwo.setName("Friday");
+        pastVoteOptionTwo.setVote(pastVote);
+        pastVoteOptionTwo.setVotesNumber(15L);
+        voteOptionService.saveVoteOption(pastVoteOptionTwo);
     }
 
     private Company testCompany2(){

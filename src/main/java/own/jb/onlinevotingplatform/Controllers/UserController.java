@@ -49,7 +49,7 @@ public class UserController {
         return "User";
     }
 
-    @PostMapping("/user")
+    @PostMapping("/user-profile")
     public String user(Principal principal, @Valid @RequestParam String firstName, String lastName, String documentId, String email, String password, String aboutMe) {
         // TODO maybe change it to model atribbute User?
         // TODO then add binding result
@@ -58,7 +58,7 @@ public class UserController {
             return "redirect:/login";
         }
         userService.editUser(firstName,lastName, email,  documentId, password, aboutMe);
-        return "redirect:/user";
+        return "redirect:/user-profile";
     }
 
     @GetMapping("/register")

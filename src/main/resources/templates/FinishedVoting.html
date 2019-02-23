@@ -21,10 +21,19 @@
             <td colspan="2"> No Current Votes </td>
         </tr>
 
-        <tr th:each="vote: ${finishedVotes}">
-            <td th:text="${vote.name}">Vote Name</td>
-            <td> <a th:href="@{/vote/{id}(id=${vote.id})}">Vote!</a> </td>
-        </tr>
+        <span th:each="vote : ${finishedVotes}">
+
+            <tr>
+                  <td th:text="${vote.name}">Vote Name</td>
+                  <td th:text="${vote.getVoteEnd()}"></td>
+            </tr>
+
+             <tr th:each="option : ${vote.voteOptions}">
+            <td th:text="${option.name}">Vote Name</td>
+            <td th:text="${option.votesNumber}"></td>
+             </tr>
+
+        <span/>
 
         </tbody>
     </table>
