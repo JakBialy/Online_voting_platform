@@ -61,12 +61,14 @@ public class AppStartup implements ApplicationRunner {
         companyService.saveCompany(company);
 
         Vote vote = new Vote();
+
         vote.setCompany(company);
         vote.setName("Company's drinking party");
         vote.setVoteStart(LocalDateTime.now().plusMinutes(1));
-        vote.setVoteEnd(LocalDateTime.now().plusMinutes(5));
-        vote.setVoteResults(LocalDateTime.now().plusMinutes(6));
+        vote.setVoteEnd(LocalDateTime.now().plusMinutes(2));
+        vote.setVoteResults(LocalDateTime.now().plusMinutes(2));
         voteService.saveVote(vote);
+        voteService.calculateVoteResultWithTiming(vote);
 
         VoteOption voteOption = new VoteOption();
         voteOption.setName("Thursday");
@@ -85,6 +87,7 @@ public class AppStartup implements ApplicationRunner {
         voteTestTwo.setVoteEnd(LocalDateTime.now().plusMinutes(20));
         voteTestTwo.setVoteResults(LocalDateTime.now().plusMinutes(30));
         voteService.saveVote(voteTestTwo);
+        voteService.calculateVoteResultWithTiming(voteTestTwo);
 
         VoteOption voteOptionOne = new VoteOption();
         voteOptionOne.setName("10.05.2019");

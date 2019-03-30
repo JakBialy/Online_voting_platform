@@ -92,9 +92,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Vote> findAllFinishedVotesForUser(User user) {
+    public List<Vote> findAllReadyForDisplayVotesForUser(User user) {
         List<Vote> voteList = user.getCompany().getVotes();
-        voteList = voteList.stream().filter(element -> element.getVoteEnd().isBefore(LocalDateTime.now())).collect(Collectors.toList());
+        voteList = voteList.stream().filter(element -> element.getVoteResults().isBefore(LocalDateTime.now())).collect(Collectors.toList());
         return voteList;
     }
 

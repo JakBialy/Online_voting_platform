@@ -16,7 +16,7 @@ public interface UserService {
 
     void editUser(String firstName, String lastName, String email, String documentId, String password, String aboutMe);
 
-    List<Vote> findAllFinishedVotesForUser(User user);
+    List<Vote> findAllReadyForDisplayVotesForUser(User user);
 
     List<Vote> findAllCurrentVotesForUser(User user);
 }

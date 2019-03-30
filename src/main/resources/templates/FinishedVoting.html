@@ -9,12 +9,14 @@
 
 <div class="content table-responsive table-full-width">
     <table class="table table-striped">
+
         <thead>
         <tr>
             <th>Vote Name</th>
             <th>Vote!</th>
         </tr>
         </thead>
+
         <tbody>
 
         <tr th:if="${finishedVotes.isEmpty()}">
@@ -37,9 +39,9 @@
 
         </tbody>
     </table>
-
 </div>
 
 <div th:replace="../static/elements/Footer.html :: footer" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+
 
 </html>

@@ -39,7 +39,7 @@ public class UserController {
     @GetMapping("/finished-voting")
     public String finishedVoting(Model model, Principal principal){
         User user = userService.findByUserName(principal.getName());
-        model.addAttribute("finishedVotes", userService.findAllFinishedVotesForUser(user));
+        model.addAttribute("finishedVotes", userService.findAllReadyForDisplayVotesForUser(user));
         return "FinishedVoting";
     }
 

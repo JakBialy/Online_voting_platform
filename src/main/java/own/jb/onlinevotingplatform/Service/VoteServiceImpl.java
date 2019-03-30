@@ -1,6 +1,7 @@
 package own.jb.onlinevotingplatform.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import own.jb.onlinevotingplatform.Entities.User;
 import own.jb.onlinevotingplatform.Entities.Vote;
@@ -9,7 +10,10 @@ import own.jb.onlinevotingplatform.Repository.UserRepository;
 import own.jb.onlinevotingplatform.Repository.VoteOptionRepository;
 import own.jb.onlinevotingplatform.Repository.VoteRepository;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class VoteServiceImpl implements VoteService {
@@ -55,6 +59,50 @@ public class VoteServiceImpl implements VoteService {
         vote.setVotingUsers(usersWhoVoted);
 
         voteRepository.save(vote);
+    }
+
+    /**
+     * Asynchronical method which is calculating vote results, method is waiting during
+     * time when vote take place, after it it is running and checking which option is a
+     * winning option
+     * @param vote vote which is currently processed
+     */
+    @Override
+    @Async
+    public void calculateVoteResultWithTiming(Vote vote) {
+        long seconds = ChronoUnit.SECONDS.between(LocalDateTime.now(), vote.getVoteEnd());
+
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // called again for same vote for gets update about voting which happened in meantime
+        Vote updatedVote = voteRepository.findById(vote.getId()).get();
+        List<VoteOption> voteOptionList = updatedVote.getVoteOptions();
+
+        long totalNumberOfVotes = voteOptionList.stream().mapToLong(VoteOption::getVotesNumber).sum();
+        long maxVotes = voteOptionList.stream().max(Comparator.comparing(VoteOption::getVotesNumber))
+                    .orElseThrow(NoSuchElementException::new).getVotesNumber();
+
+        int winnersCounter = 0;
+
+        for (VoteOption voteOption: voteOptionList) {
+            double calculatePercentage = voteOption.getVotesNumber() / (double)totalNumberOfVotes;
+            calculatePercentage = Math.round(calculatePercentage);
+            voteOption.setPercentage(calculatePercentage);
+
+            if (voteOption.getVotesNumber() == maxVotes){
+                voteOption.setWinner(true);
+                winnersCounter++;
+            }
+        }
+
+        updatedVote.setOneWinner(winnersCounter == 1);
+        updatedVote.setFinished(true);
+        updatedVote.setVoteOptions(voteOptionList);
+        voteRepository.save(updatedVote);
     }
 
 }

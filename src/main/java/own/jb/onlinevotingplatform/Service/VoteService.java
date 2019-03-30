@@ -11,13 +11,14 @@ public interface VoteService {
 
     List<Vote> findAll();
 
-    Vote findOne(Long id);
+    Vote findOne (Long id);
 
-    void saveVote(Vote vote);
+    void saveVote (Vote vote);
 
-    void deleteVote(Vote vote);
+    void deleteVote (Vote vote);
 
-    void saveVotingUser(String name, Long voteOptionId);
+    void saveVotingUser (String name, Long voteOptionId);
 
+    void calculateVoteResultWithTiming (Vote vote);
 
 }

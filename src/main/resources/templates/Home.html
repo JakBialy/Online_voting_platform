@@ -6,25 +6,26 @@
 
 <!-- Content Here!!! -->
 <h3> Welcome to online voting platform</h3>
-<p> Here is a list of your all votings:</p>
+<!--<p> Here is a list of your all votings:</p>-->
 
-<div class="content table-responsive table-full-width">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Vote Name</th>
-            <th>Vote!</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="vote: ${user.company.votes}">
-            <td th:text="${vote.name}">Vote Name</td>
-            <td> <a th:href="@{/vote/{id}(id=${vote.id})}">Vote!</a> </td>
-        </tr>
-        </tbody>
-    </table>
+<!--<div class="content table-responsive table-full-width">-->
+    <!---->
+    <!--<table class="table table-striped">-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th>Vote Name</th>-->
+            <!--<th>Vote!</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr th:each="vote: ${user.company.votes}">-->
+            <!--<td th:text="${vote.name}">Vote Name</td>-->
+            <!--<td> <a th:href="@{/vote/{id}(id=${vote.id})}">Vote!</a> </td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
 
-</div>
+<!--</div>-->
 
 
 
