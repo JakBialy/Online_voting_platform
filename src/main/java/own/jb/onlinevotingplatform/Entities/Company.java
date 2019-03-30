@@ -1,7 +1,6 @@
 package own.jb.onlinevotingplatform.Entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -9,8 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "companies")
-public @Getter @Setter
+public
 class Company {
 
     @Id
@@ -18,9 +22,12 @@ class Company {
     private Long id;
 
     @NotEmpty
-    @Column(unique = true)
+    @Column(name = "company_name", unique = true)
     private String companyName;
 
+    /**
+     * element collection as this is a list of strings linked to specific company account
+     */
     @ElementCollection
     @CollectionTable(name="employers_ids_companies", joinColumns=@JoinColumn(name="company_id"))
     @Column(name="employers_ids")

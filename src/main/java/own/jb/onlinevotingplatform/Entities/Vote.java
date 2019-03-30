@@ -1,37 +1,52 @@
 package own.jb.onlinevotingplatform.Entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "votes")
-public @Getter @Setter
-class Vote {
+public class Vote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "vote_start")
     private LocalDateTime voteStart;
 
+    @Column(name = "vote_end")
     private LocalDateTime voteEnd;
 
+    /**
+     * Time of vote results is saying when results should be displayed for users
+     */
+    @Column(name = "vote_results")
     private LocalDateTime voteResults;
+
+    @Column(name = "is_finished")
+    private boolean isFinished;
+
+    @Column(name = "is_one_winner")
+    private boolean isOneWinner;
 
     @ManyToOne
     @JoinColumn(name = "companies_id")
     private Company company;
 
-    @OneToMany(mappedBy = "vote")
+    // TODO change to eager fetch type just for having proper working ASYNC method
+    @OneToMany(mappedBy = "vote", fetch = FetchType.EAGER)
     private List<VoteOption> voteOptions = new ArrayList<>();
 
     @ManyToMany
@@ -40,4 +55,5 @@ class Vote {
             inverseJoinColumns=@JoinColumn(name="user_ID")
     )
     private List<User> votingUsers;
+
 }
