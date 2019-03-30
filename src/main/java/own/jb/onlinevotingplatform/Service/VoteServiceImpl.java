@@ -82,9 +82,13 @@ public class VoteServiceImpl implements VoteService {
         Vote updatedVote = voteRepository.findById(vote.getId()).get();
         List<VoteOption> voteOptionList = updatedVote.getVoteOptions();
 
-        long totalNumberOfVotes = voteOptionList.stream().mapToLong(VoteOption::getVotesNumber).sum();
-        long maxVotes = voteOptionList.stream().max(Comparator.comparing(VoteOption::getVotesNumber))
-                    .orElseThrow(NoSuchElementException::new).getVotesNumber();
+        long totalNumberOfVotes = voteOptionList
+                .stream()
+                .mapToLong(VoteOption::getVotesNumber).sum();
+
+        long maxVotes = voteOptionList.stream()
+                .max(Comparator.comparing(VoteOption::getVotesNumber))
+                .orElseThrow(NoSuchElementException::new).getVotesNumber();
 
         int winnersCounter = 0;
 

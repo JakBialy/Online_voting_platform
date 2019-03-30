@@ -14,7 +14,10 @@ import own.jb.onlinevotingplatform.Service.VoteOptionService;
 import own.jb.onlinevotingplatform.Service.VoteService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 @Component
 public class AppStartup implements ApplicationRunner {
@@ -35,11 +38,13 @@ public class AppStartup implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args)  {
+        saveTestData();
+    }
+
+    private void saveTestData(){
         saveTestCompany1();
         companyService.saveCompany(testCompany2());
-        if (userService.getNumUsers() == 0L) {
-            userService.saveUser(testUser1());
-        }
+        userService.saveUser(testUser1());
     }
 
     private User testUser1() {
@@ -55,30 +60,39 @@ public class AppStartup implements ApplicationRunner {
     }
 
     private void saveTestCompany1(){
-        Company company = new Company();
-        company.setEmployersIds(Arrays.asList("ABC123", "ABC1234", "DEMO"));
-        company.setCompanyName("TEST_1");
+        Company company = Company
+                .builder()
+                .employersIds(Arrays.asList("ABC123", "ABC1234", "DEMO"))
+                .companyName("TEST_1")
+                .build();
+
         companyService.saveCompany(company);
 
-        Vote vote = new Vote();
-
-        vote.setCompany(company);
-        vote.setName("Company's drinking party");
-        vote.setVoteStart(LocalDateTime.now().plusMinutes(1));
-        vote.setVoteEnd(LocalDateTime.now().plusMinutes(2));
-        vote.setVoteResults(LocalDateTime.now().plusMinutes(2));
+        Vote vote = Vote
+                .builder()
+                .company(company)
+                .name("Company's drinking party")
+                .voteStart(LocalDateTime.now().plusMinutes(1))
+                .voteEnd(LocalDateTime.now().plusMinutes(2))
+                .voteResults(LocalDateTime.now().plusMinutes(2))
+                .build();
         voteService.saveVote(vote);
         voteService.calculateVoteResultWithTiming(vote);
 
-        VoteOption voteOption = new VoteOption();
-        voteOption.setName("Thursday");
-        voteOption.setVote(vote);
+        VoteOption voteOption = VoteOption
+                .builder()
+                .name("Thursday")
+                .vote(vote)
+                .build();
         voteOptionService.saveVoteOption(voteOption);
 
-        VoteOption voteOption1 = new VoteOption();
-        voteOption1.setName("Friday");
-        voteOption1.setVote(vote);
-        voteOptionService.saveVoteOption(voteOption1);
+        VoteOption voteOption2 = VoteOption
+                .builder()
+                .name("Friday")
+                .vote(vote)
+                .build();
+        voteOptionService.saveVoteOption(voteOption2);
+
 
         Vote voteTestTwo = new Vote();
         voteTestTwo.setCompany(company);
@@ -99,37 +113,46 @@ public class AppStartup implements ApplicationRunner {
         VoteOptionTwo.setVote(voteTestTwo);
         voteOptionService.saveVoteOption(VoteOptionTwo);
         pastEvent(company);
-
     }
 
     private void pastEvent(Company company) {
-        // past event, to show and check ability of showing past events
-        Vote pastVote = new Vote();
-        pastVote.setCompany(company);
-        pastVote.setName("Some event in the past");
-        pastVote.setVoteStart(LocalDateTime.now().minusDays(15));
-        pastVote.setVoteEnd(LocalDateTime.now().minusDays(10));
-        pastVote.setVoteResults(LocalDateTime.now().minusDays(9));
+        Vote pastVote = Vote
+                .builder()
+                .company(company)
+                .name("Some event in the past")
+                .voteStart(LocalDateTime.now().minusDays(15))
+                .voteEnd(LocalDateTime.now().minusDays(10))
+                .voteResults(LocalDateTime.now().minusDays(9))
+                .build();
+
         voteService.saveVote(pastVote);
 
-        VoteOption pastVoteOption = new VoteOption();
-        pastVoteOption.setName("Saturday");
-        pastVoteOption.setVote(pastVote);
-        pastVoteOption.setVotesNumber(10L);
+        // past event, to show and check ability of showing past events
+        VoteOption pastVoteOption = VoteOption
+                .builder()
+                .name("Saturday")
+                .votesNumber(10L)
+                .vote(pastVote)
+                .build();
+
         voteOptionService.saveVoteOption(pastVoteOption);
 
-        VoteOption pastVoteOptionTwo = new VoteOption();
-        pastVoteOptionTwo.setName("Friday");
-        pastVoteOptionTwo.setVote(pastVote);
-        pastVoteOptionTwo.setVotesNumber(15L);
+        VoteOption pastVoteOptionTwo = VoteOption
+                .builder()
+                .name("Friday")
+                .votesNumber(15L)
+                .vote(pastVote)
+                .build();
         voteOptionService.saveVoteOption(pastVoteOptionTwo);
+
     }
 
     private Company testCompany2(){
-        Company company = new Company();
-        company.setEmployersIds(Arrays.asList("ABC321", "ABC4321"));
-        company.setCompanyName("TEST_2");
-        return company;
+        return Company
+                .builder()
+                .employersIds(Arrays.asList("ABC321", "ABC4321"))
+                .companyName("TEST_2")
+                .build();
     }
 
 }
