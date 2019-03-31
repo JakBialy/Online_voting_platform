@@ -1,4 +1,4 @@
-package own.jb.onlinevotingplatform.security.services.implementations;
+package own.jb.onlinevotingplatform.security.repositories.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

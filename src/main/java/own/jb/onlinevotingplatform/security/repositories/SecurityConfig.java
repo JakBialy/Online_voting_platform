@@ -1,4 +1,4 @@
-package own.jb.onlinevotingplatform.security;
+package own.jb.onlinevotingplatform.security.repositories;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

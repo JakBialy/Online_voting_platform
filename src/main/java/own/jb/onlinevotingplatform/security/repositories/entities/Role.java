@@ -1,13 +1,14 @@
-package own.jb.onlinevotingplatform.security.entities;
+package own.jb.onlinevotingplatform.security.repositories.entities;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public @Getter @Setter
 class Role {
 

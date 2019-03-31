@@ -12,5 +12,5 @@ public interface CompanyService {
 
     void saveCompany(Company company);
 
-    void deleteComapny(Company company);
+    void deleteCompany(Company company);
 }

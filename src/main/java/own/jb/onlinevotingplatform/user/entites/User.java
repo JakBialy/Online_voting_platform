@@ -1,8 +1,7 @@
 package own.jb.onlinevotingplatform.user.entites;
 
-import lombok.Getter;
-import lombok.Setter;
-import own.jb.onlinevotingplatform.security.entities.Role;
+import lombok.*;
+import own.jb.onlinevotingplatform.security.repositories.entities.Role;
 import own.jb.onlinevotingplatform.voting.entites.Vote;
 import own.jb.onlinevotingplatform.company.entities.Company;
 
@@ -14,6 +13,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public @Getter @Setter
 class User {
 

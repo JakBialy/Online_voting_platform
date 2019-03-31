@@ -1,4 +1,4 @@
-package own.jb.onlinevotingplatform.company.services.implementations;
+package own.jb.onlinevotingplatform.company.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void deleteComapny(Company company) {
+    public void deleteCompany(Company company) {
         companyRepository.delete(company);
     }
 }

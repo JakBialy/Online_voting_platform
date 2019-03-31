@@ -1,10 +1,10 @@
-package own.jb.onlinevotingplatform.security.services.implementations;
+package own.jb.onlinevotingplatform.security.repositories.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import own.jb.onlinevotingplatform.security.repositories.RoleRepository;
-import own.jb.onlinevotingplatform.security.entities.Role;
-import own.jb.onlinevotingplatform.security.services.RoleService;
+import own.jb.onlinevotingplatform.security.repositories.repositories.RoleRepository;
+import own.jb.onlinevotingplatform.security.repositories.entities.Role;
+import own.jb.onlinevotingplatform.security.repositories.services.RoleService;
 
 
 @Service
@@ -12,11 +12,6 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
 
-    /**
-     * Method is a constructor of rolerepository
-     *
-     * @param roleRepository role repositories
-     */
     @Autowired
     public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
