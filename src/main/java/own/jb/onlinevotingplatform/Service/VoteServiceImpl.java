@@ -62,7 +62,7 @@ public class VoteServiceImpl implements VoteService {
     }
 
     /**
-     * Asynchronical method which is calculating vote results, method is waiting during
+     * Asynchronous method which is calculating vote results, method is waiting during
      * time when vote take place, after it it is running and checking which option is a
      * winning option
      * @param vote vote which is currently processed
@@ -79,7 +79,7 @@ public class VoteServiceImpl implements VoteService {
         }
 
         // called again for same vote for gets update about voting which happened in meantime
-        Vote updatedVote = voteRepository.findById(vote.getId()).get();
+        Vote updatedVote = voteRepository.getOne(vote.getId());
         List<VoteOption> voteOptionList = updatedVote.getVoteOptions();
 
         long totalNumberOfVotes = voteOptionList
@@ -107,6 +107,10 @@ public class VoteServiceImpl implements VoteService {
         updatedVote.setFinished(true);
         updatedVote.setVoteOptions(voteOptionList);
         voteRepository.save(updatedVote);
+    }
+
+    public List<Vote> findAllCurrentVoting (){
+        return voteRepository.findAllByVoteEndIsAfter(LocalDateTime.now());
     }
 
 }

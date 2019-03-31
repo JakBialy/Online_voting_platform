@@ -12,4 +12,6 @@ import java.util.List;
 public interface VoteRepository extends JpaRepository<Vote,Long> {
 
     List<Vote> findByVotingUsersAndVoteEndBefore(User user, LocalDateTime localDateTime);
+
+    List<Vote> findAllByVoteEndIsAfter(LocalDateTime localDateTime);
 }

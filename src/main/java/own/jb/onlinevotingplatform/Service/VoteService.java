@@ -21,4 +21,6 @@ public interface VoteService {
 
     void calculateVoteResultWithTiming (Vote vote);
 
+    List<Vote> findAllCurrentVoting ();
+
 }
