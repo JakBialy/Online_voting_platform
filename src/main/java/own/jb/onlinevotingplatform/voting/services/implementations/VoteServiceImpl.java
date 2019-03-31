@@ -80,7 +80,8 @@ public class VoteServiceImpl implements VoteService {
         }
 
         // called again for same vote for gets update about voting which happened in meantime
-        Vote updatedVote = voteRepository.getOne(vote.getId());
+        // TODO check difference between findById and getOne and why getOne causes lazyException and findById with .get not
+        Vote updatedVote = voteRepository.findById(vote.getId()).get();
         List<VoteOption> voteOptionList = updatedVote.getVoteOptions();
 
         long totalNumberOfVotes = voteOptionList
