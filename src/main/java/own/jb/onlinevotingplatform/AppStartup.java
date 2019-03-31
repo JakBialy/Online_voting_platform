@@ -7,8 +7,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.stereotype.Component;
-import own.jb.onlinevotingplatform.Entities.Vote;
-import own.jb.onlinevotingplatform.Service.VoteService;
+import own.jb.onlinevotingplatform.voting.entites.Vote;
+import own.jb.onlinevotingplatform.voting.services.VoteService;
 
 import java.sql.SQLException;
 import java.util.Objects;
