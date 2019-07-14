@@ -19,6 +19,3 @@ To do list:
 - pdf binder (reports) or .csv file
 - api for allowing clients to have possiblity to import information to some external system,
 protected by tokens
-
-
-Application is deployed on Heroku, can be found here: https://online-voting-platform.herokuapp.com/
